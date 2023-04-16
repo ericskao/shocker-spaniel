@@ -22,7 +22,7 @@
   3. Allow percentage-based heights in the application
 */
 html,
-body {
+body, #root, .App {
   height: 100%;
 }
 
