@@ -14,8 +14,10 @@ app.use(
 app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express!' });
 });
-
 app.get('/goals', db.getGoals);
+app.post('/goals', db.createGoal);
+
+console.log('here');
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

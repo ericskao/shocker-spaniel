@@ -12,10 +12,27 @@ const getGoals = (request, response) => {
     if (error) {
       throw error;
     }
-    response.status(200).json(results.rows);
+    console.log('get goal results', results);
+    response.status(200).send(results.rows);
   });
+};
+
+const createGoal = (request, response) => {
+  const { title, isPrimary } = request.body;
+  pool.query(
+    'INSERT INTO goals (title, is_primary) VALUES ($1, $2) RETURNING *',
+    [title, isPrimary],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      console.log('goal created', results);
+      response.status(201).send(results.rows[0]);
+    },
+  );
 };
 
 module.exports = {
   getGoals,
+  createGoal,
 };

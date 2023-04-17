@@ -9,14 +9,18 @@ const GoalsContainer = () => {
   const [time, setTime] = useState<DateTime>(DateTime.now());
 
   useEffect(() => {
-    setInterval(() => {
-      setTime(DateTime.now());
-    }, 10000);
+    axios.get('/goals').then((response) => console.log(response.data));
   }, []);
 
-  const onGoalInputEnter = (val: string) => {
+  useEffect(() => {
+    setInterval(() => {
+      setTime(DateTime.now());
+    }, 1000);
+  }, []);
+
+  const onGoalInputEnter = (title: string) => {
     axios
-      .get('/api')
+      .post('/goals', { title, isPrimary: true })
       .then((response) => {
         console.log(response);
       })
