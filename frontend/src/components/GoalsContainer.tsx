@@ -1,12 +1,19 @@
 import { DateTime } from 'luxon';
-
-import './GoalsContainer.scss';
 import Input from './Input';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import './GoalsContainer.scss';
+
+interface GoalInterface {
+  id: number;
+  isPrimary: boolean;
+  title: string;
+}
+
 const GoalsContainer = () => {
   const [time, setTime] = useState<DateTime>(DateTime.now());
+  const [todaysGoal, setTodaysGoal] = useState<null | GoalInterface>(null);
 
   useEffect(() => {
     axios.get('/goals').then((response) => console.log(response.data));
@@ -22,7 +29,7 @@ const GoalsContainer = () => {
     axios
       .post('/goals', { title, isPrimary: true })
       .then((response) => {
-        console.log(response);
+        setTodaysGoal(response.data);
       })
       .catch((error) => console.log(error));
   };

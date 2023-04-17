@@ -1,3 +1,5 @@
+const humps = require('humps');
+
 const Pool = require('pg').Pool;
 const pool = new Pool({
   user: 'admin',
@@ -13,7 +15,7 @@ const getGoals = (request, response) => {
       throw error;
     }
     console.log('get goal results', results);
-    response.status(200).send(results.rows);
+    response.status(200).send(humps.camelizeKeys(results.rows));
   });
 };
 
@@ -27,7 +29,7 @@ const createGoal = (request, response) => {
         throw error;
       }
       console.log('goal created', results);
-      response.status(201).send(results.rows[0]);
+      response.status(201).send(humps.camelizeKeys(results.rows[0]));
     },
   );
 };
