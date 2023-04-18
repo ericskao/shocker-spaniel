@@ -14,10 +14,15 @@ app.use(
 app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express!' });
 });
+
+// Get today's Goals
 app.get('/goals', db.getGoals);
+
+// Create a Goal
 app.post('/goals', db.createGoal);
 
-console.log('here');
+// Update a Goal
+app.put('/goals/:id', db.updateGoal);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
