@@ -1,11 +1,10 @@
-import { DateTime } from 'luxon';
+import apiClient from '../http-common.js';
 import Input from './Input';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-
-import './GoalsContainer.scss';
 import Clock from './Clock';
 import Goal from './Goal';
+
+import './GoalsContainer.scss';
 
 export interface GoalInterface {
   id: number;
@@ -18,13 +17,13 @@ const GoalsContainer = () => {
   const [todaysGoals, setTodaysGoal] = useState<GoalInterface[]>([]);
 
   useEffect(() => {
-    axios.get('/goals').then((response) => {
+    apiClient.get('/goals').then((response) => {
       setTodaysGoal(response.data);
     });
   }, []);
 
   const onGoalInputEnter = (title: string) => {
-    axios
+    apiClient
       .post('/goals', { title, isPrimary: true })
       .then((response) => {
         // todo should update this with list of goals after we allow preplanning goals from day prior
