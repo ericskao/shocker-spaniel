@@ -1,8 +1,9 @@
-import apiClient from '../http-common.js';
-import Input from './Input';
-import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import apiClient from '../http-common';
+import { getGoals } from '../queries/goals';
 import Clock from './Clock';
 import Goal from './Goal';
+import Input from './Input';
 
 import './GoalsContainer.scss';
 
@@ -14,25 +15,16 @@ export interface GoalInterface {
 }
 
 const GoalsContainer = () => {
-  const [todaysGoals, setTodaysGoal] = useState<GoalInterface[]>([]);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    apiClient.get('/goals').then((response) => {
-      setTodaysGoal(response.data);
-    });
-  }, []);
+  const { isLoading, isError, data: query, error } = useQuery('goals', getGoals);
 
-  const onGoalInputEnter = (title: string) => {
-    apiClient
-      .post('/goals', { title, isPrimary: true })
-      .then((response) => {
-        // todo should update this with list of goals after we allow preplanning goals from day prior
-        setTodaysGoal([response.data]);
-      })
-      .catch((error) => console.log(error));
-  };
+  const mutation = useMutation((title: string) =>
+    apiClient.post(`/goals`, { title, isPrimary: true }),
+  );
 
-  const primaryGoal = todaysGoals.find((goal) => goal.isPrimary);
+  const goals = query?.data || [];
+  const primaryGoal = goals.find((goal: GoalInterface) => goal.isPrimary);
 
   return (
     <div className="goals-container bg-coolGray-400">
@@ -52,7 +44,7 @@ const GoalsContainer = () => {
           ) : (
             <div>
               <div>What is your main focus for today?</div>
-              <Input onEnter={onGoalInputEnter}></Input>
+              <Input onEnter={(title: string) => mutation.mutate(title)}></Input>
             </div>
           )}
         </div>

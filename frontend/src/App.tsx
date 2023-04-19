@@ -1,10 +1,5 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import GoalsContainer from './components/GoalsContainer';
 
 import './App.scss';
@@ -18,6 +13,7 @@ function App() {
         <GoalsContainer />
         <div className="bg-slate-500">footer</div>
       </div>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
