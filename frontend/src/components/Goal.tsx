@@ -43,7 +43,12 @@ const Goal = ({ goal }: { goal: GoalInterface }) => {
     <li className="goal flex gap-2 items-center p-2">
       <input type="checkbox" onChange={() => completeGoal.mutate()} checked={!!goal.completed} />
       {editing ? (
-        <Input autoFocus onEnter={(title: string) => editGoal.mutate(title)} value={goal.title} />
+        <Input
+          autoFocus
+          onEnter={(title: string) => editGoal.mutate(title)}
+          value={goal.title}
+          variant="primary"
+        />
       ) : (
         <div>{goal.title}</div>
       )}
