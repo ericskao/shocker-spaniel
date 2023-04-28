@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import apiClient from '../http-common.js';
+import Checkbox from './Checkbox';
 import { GoalInterface } from './GoalsContainer';
-import Input from './Input';
+import TextInput from './TextInput';
 
 import './Goal.scss';
 
@@ -40,20 +41,21 @@ const Goal = ({ goal }: { goal: GoalInterface }) => {
   });
 
   return (
-    <li className="goal flex gap-2 items-center p-2">
-      <input type="checkbox" onChange={() => completeGoal.mutate()} checked={!!goal.completed} />
+    <div className="goal flex gap-2 items-center">
+      <Checkbox onInputChange={() => completeGoal.mutate()} checked={!!goal.completed} />
       {editing ? (
-        <Input
+        <TextInput
           autoFocus
           onEnter={(title: string) => editGoal.mutate(title)}
+          onEscape={() => setEditing(false)}
           value={goal.title}
           variant="primary"
         />
       ) : (
         <div>{goal.title}</div>
       )}
-      <button onClick={() => setEditing(true)}>Edit</button>
-    </li>
+      <button onClick={() => setEditing(!editing)}>Edit</button>
+    </div>
   );
 };
 

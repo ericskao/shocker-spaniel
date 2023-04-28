@@ -1,22 +1,22 @@
 import classNames from 'classnames';
-import { MutableRefObject, useState } from 'react';
+import { useState } from 'react';
 
-import './Input.scss';
+import './TextInput.scss';
 
-const Input = ({
+const TextInput = ({
   onEnter,
+  onEscape,
   value = '',
   autoFocus = false,
   placeholder = '',
   variant = 'primary',
-  ref,
 }: {
   onEnter: (val: string) => void;
+  onEscape?: () => void;
   value?: string;
   autoFocus?: boolean;
   placeholder?: string;
   variant: 'primary' | 'secondary';
-  ref?: MutableRefObject<null>;
 }) => {
   const [inputValue, setInputValue] = useState<string>(value);
 
@@ -24,12 +24,13 @@ const Input = ({
     if (e.key === 'Enter') {
       onEnter(e.currentTarget.value);
       setInputValue('');
+    } else if (e.key === 'Escape' && onEscape) {
+      onEscape();
     }
   };
 
   return (
     <input
-      ref={ref}
       placeholder={placeholder}
       autoFocus={!!autoFocus}
       className={classNames('input', {
@@ -43,4 +44,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default TextInput;

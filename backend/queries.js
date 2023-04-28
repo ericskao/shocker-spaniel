@@ -11,7 +11,7 @@ const pool = new Pool({
 
 const getGoals = (request, response) => {
   pool.query(
-    'SELECT * FROM goals WHERE DATE(goals.created_at) = CURRENT_DATE ORDER BY id ASC',
+    'SELECT * FROM goals WHERE DATE(goals.created_at) = CURRENT_DATE ORDER BY is_primary DESC',
     (error, results) => {
       if (error) {
         throw error;
@@ -50,6 +50,7 @@ const updateGoal = (request, response) => {
       },
     );
   } else {
+    // updating goal name
     const query = `UPDATE goals SET title = '${title}' WHERE goals.id = ${id}`;
     pool.query(query, (error, results) => {
       if (error) {

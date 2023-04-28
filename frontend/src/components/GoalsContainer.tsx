@@ -1,10 +1,10 @@
+import useGoals from '../hooks/useGoals';
 import Clock from './Clock';
 import Goal from './Goal';
-import Input from './Input';
-
-import useGoals from '../hooks/useGoals';
-import './GoalsContainer.scss';
 import GoalsList from './GoalsList';
+import TextInput from './TextInput';
+
+import './GoalsContainer.scss';
 
 export interface GoalInterface {
   id: number;
@@ -35,7 +35,7 @@ const GoalsContainer = () => {
           ) : (
             <div>
               <div>What is your main focus for today?</div>
-              <Input
+              <TextInput
                 onEnter={(title: string) => addGoalMutation.mutate({ title, isPrimary: true })}
                 variant="primary"
               />
