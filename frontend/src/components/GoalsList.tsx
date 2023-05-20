@@ -1,9 +1,8 @@
+import useGoals from '../hooks/useGoals';
+import Goal from './Goal';
+import { GoalInterface } from './GoalsContainer';
 import TextInput from './TextInput';
 
-import useGoals from '../hooks/useGoals';
-import { GoalInterface } from './GoalsContainer';
-
-import Goal from './Goal';
 import './GoalsList.scss';
 
 const GoalsList = () => {

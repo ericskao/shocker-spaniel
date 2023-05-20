@@ -2,8 +2,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import GoalsContainer from './components/GoalsContainer';
 
-import './App.scss';
-
 function App() {
   const queryClient = new QueryClient();
   return (
