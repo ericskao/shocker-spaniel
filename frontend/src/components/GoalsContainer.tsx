@@ -1,5 +1,5 @@
 import useGoals from '../hooks/useGoals';
-import Clock from './Clock';
+import Clock from './Clock/Clock';
 import Goal from './Goal';
 import GoalsList from './GoalsList';
 import TextInput from './TextInput';

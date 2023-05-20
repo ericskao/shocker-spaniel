@@ -10,7 +10,7 @@ const Clock = () => {
     }, 1000);
   }, []);
 
-  return <div className="text-8xl mb-5">{time.toLocaleString(DateTime.TIME_SIMPLE)}</div>;
+  return <h1 className="text-8xl mb-5">{time.toLocaleString(DateTime.TIME_SIMPLE)}</h1>;
 };
 
 export default Clock;
