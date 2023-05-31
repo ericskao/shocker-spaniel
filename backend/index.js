@@ -40,6 +40,9 @@ app.post('/api/goals', db.createGoal);
 // Update a Goal
 app.put('/api/goals/:id', db.updateGoal);
 
+// Delete a Goal
+app.delete('/api/goals/:id', db.deleteGoal);
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

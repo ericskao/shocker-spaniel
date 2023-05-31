@@ -61,8 +61,20 @@ const updateGoal = (request, response) => {
   }
 };
 
+const deleteGoal = (request, response) => {
+  const { id } = request.params;
+  const query = `DELETE FROM goals WHERE goals.id = ${id}`;
+  pool.query(query, (error) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).send();
+  });
+};
+
 module.exports = {
   getGoals,
   createGoal,
   updateGoal,
+  deleteGoal,
 };
