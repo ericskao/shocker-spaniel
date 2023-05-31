@@ -1,6 +1,6 @@
 import useGoals from '../hooks/useGoals';
 import Goal from './Goal';
-import { GoalInterface } from './GoalsContainer';
+import { GoalInterface } from './MainPage/MainPage';
 import TextInput from './TextInput';
 
 import './GoalsList.scss';

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import apiClient from '../http-common.js';
 import Checkbox from './Checkbox';
-import { GoalInterface } from './GoalsContainer';
+import { GoalInterface } from './MainPage/MainPage';
 import TextInput from './TextInput';
 
 import './Goal.scss';
@@ -40,6 +40,16 @@ const Goal = ({ goal }: { goal: GoalInterface }) => {
     },
   });
 
+  const deleteGoal = useMutation({
+    mutationFn: () =>
+      apiClient
+        .delete(`/goals/${goal.id}`)
+        .catch((err) => console.log('something went wrong deleting', goal.id)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['goals'] });
+    },
+  });
+
   return (
     <div className="goal flex gap-2 items-center">
       <Checkbox onInputChange={() => completeGoal.mutate()} checked={!!goal.completed} />
@@ -55,6 +65,7 @@ const Goal = ({ goal }: { goal: GoalInterface }) => {
         <div>{goal.title}</div>
       )}
       <button onClick={() => setEditing(!editing)}>Edit</button>
+      <button onClick={() => deleteGoal.mutate()}>Delete</button>
     </div>
   );
 };

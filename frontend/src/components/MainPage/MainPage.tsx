@@ -1,10 +1,10 @@
-import useGoals from '../hooks/useGoals';
-import Clock from './Clock/Clock';
-import Goal from './Goal';
-import GoalsList from './GoalsList';
-import TextInput from './TextInput';
+import useGoals from '../../hooks/useGoals';
+import Clock from '../Clock/Clock';
+import Goal from '../Goal';
+import GoalsList from '../GoalsList';
+import TextInput from '../TextInput';
 
-import './GoalsContainer.scss';
+import './MainPage.scss';
 
 export interface GoalInterface {
   id: number;
@@ -13,7 +13,7 @@ export interface GoalInterface {
   completed: null | boolean;
 }
 
-const GoalsContainer = () => {
+const MainPage = () => {
   const { goals, addGoalMutation } = useGoals();
   const primaryGoal = goals && goals.find((goal: GoalInterface) => goal.isPrimary);
 
@@ -34,7 +34,7 @@ const GoalsContainer = () => {
             </div>
           ) : (
             <div>
-              <div>What is your main focus for today?</div>
+              <h2>What is your main focus for today?</h2>
               <TextInput
                 onEnter={(title: string) => addGoalMutation.mutate({ title, isPrimary: true })}
                 variant="primary"
@@ -48,4 +48,4 @@ const GoalsContainer = () => {
   );
 };
 
-export default GoalsContainer;
+export default MainPage;

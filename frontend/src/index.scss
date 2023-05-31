@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'TTNormsPro';
+  src: local('DMSans'), url('./assets/fonts/TTNormsProRegular.otf') format('opentype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'TTNormsPro';
+  src: local('DMSans'), url('./assets/fonts/TTNormsProMedium.otf') format('opentype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'TTNormsPro';
+  src: local('DMSans'), url('./assets/fonts/TTNormsProBold.otf') format('opentype');
+  font-weight: 700;
+}
+
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -22,8 +40,11 @@
   3. Allow percentage-based heights in the application
 */
 html,
-body, #root, .App {
+body,
+#root,
+.App {
   height: 100%;
+  font-family: 'TTNormsPro';
 }
 
 /*
@@ -77,4 +98,3 @@ h6 {
 #root {
   isolation: isolate;
 }
-
