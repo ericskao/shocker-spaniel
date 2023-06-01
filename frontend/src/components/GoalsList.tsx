@@ -1,5 +1,5 @@
 import useGoals from '../hooks/useGoals';
-import Goal from './Goal';
+import Goal from './Goal/Goal';
 import { GoalInterface } from './MainPage/MainPage';
 import TextInput from './TextInput';
 
@@ -13,7 +13,7 @@ const GoalsList = () => {
       <ul>
         {goals.map((goal: GoalInterface) => (
           <li key={goal.id}>
-            <Goal goal={goal} />
+            <Goal variant="secondary" showCheckmark goal={goal} />
           </li>
         ))}
       </ul>

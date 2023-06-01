@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import useGoals from '../../hooks/useGoals';
 import Clock from '../Clock/Clock';
-import Goal from '../Goal';
+import Goal from '../Goal/Goal';
 import GoalsList from '../GoalsList';
 import TextInput from '../TextInput';
 
+import Timer from '../Timer/Timer';
 import './MainPage.scss';
 
 export interface GoalInterface {
@@ -14,14 +16,21 @@ export interface GoalInterface {
 }
 
 const MainPage = () => {
+  const [showClock, setShowClock] = useState<boolean>(true);
   const { goals, addGoalMutation } = useGoals();
   const primaryGoal = goals && goals.find((goal: GoalInterface) => goal.isPrimary);
 
   return (
     <div className="goals-container bg-coolGray-400 relative">
       <div className="h-full flex flex-col justify-center items-center">
-        <div className="text-center">
-          <Clock />
+        <div className="group text-center">
+          <button
+            className="group-hover:visible invisible"
+            onClick={() => setShowClock(!showClock)}
+          >
+            Switch to {showClock ? 'Timer' : 'Clock'}
+          </button>
+          {showClock ? <Clock /> : <Timer />}
           <div>Good evening, Commander</div>
         </div>
         <div className="mt-5 text-center">
@@ -29,7 +38,7 @@ const MainPage = () => {
             <div>
               <div>Today</div>
               <ul>
-                <Goal goal={primaryGoal} />
+                <Goal variant="primary" goal={primaryGoal} />
               </ul>
             </div>
           ) : (
