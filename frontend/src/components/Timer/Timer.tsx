@@ -1,34 +1,50 @@
-import { useEffect, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 const Timer = () => {
   const timerLength = 5;
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [showBreak, setShowBreak] = useState(false);
+  let timerRef = useRef(null) as MutableRefObject<null | number>;
+
+  const clearTimer = () => {
+    timerRef?.current && clearInterval(timerRef.current);
+  };
 
   useEffect(() => {
-    let interval: any = null;
     if (isActive) {
-      interval = setInterval(() => {
-        console.log('seconds', seconds, 'len', timerLength);
+      timerRef.current = window.setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds + 1);
       }, 1000);
     } else {
-      interval && clearInterval(interval);
+      clearTimer();
     }
-
     return () => {
-      clearInterval(interval);
+      clearTimer();
     };
   }, [isActive]);
 
+  useEffect(() => {
+    if (seconds >= timerLength) {
+      clearTimer();
+      setIsActive(false);
+      setShowBreak(true);
+    }
+  }, [seconds]);
+
+  const timerComplete = seconds >= timerLength;
+
   return (
-    <div>
+    <div className="mb-20">
+      <div>tabs here</div>
+      <div>progress bar will go here</div>
       <div>{timerLength - seconds}</div>
-      {isActive ? (
-        <button onClick={() => setIsActive(false)}>pause</button>
-      ) : (
-        <button onClick={() => setIsActive(true)}>start</button>
-      )}
+      {!timerComplete &&
+        (isActive ? (
+          <button onClick={() => setIsActive(false)}>pause</button>
+        ) : (
+          <button onClick={() => setIsActive(true)}>start</button>
+        ))}
     </div>
   );
 };
